@@ -2,13 +2,13 @@
 from distutils.core import setup
 
 setup(
-    name='prowler',
+    name='Prowler',
     version='1.0b',
     description='Tools for interacting with prowl notification service.',
-    url='http://github.com/mikeboers/PyProwler',
+    url='http://github.com/mikeboers/Prowler',
     py_modules=['prowler'],
     
     author='Mike Boers',
-    author_email='nitrogen@mikeboers.com',
+    author_email='prowler@mikeboers.com',
     license='New BSD License',
 )
