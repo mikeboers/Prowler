@@ -4,8 +4,7 @@ Includes a `post` method for one-off messages, a `Prowl` class to assist in
 sending multiple messages, and a `LogHandler` for sending log records via
 prowl.
 
-See: http://prowl.weks.net/
-
+See: http://www.prowlapp.com/
 """
 
 
@@ -24,7 +23,7 @@ import logging
 __all__ = ['Error', 'get_remaining', 'get_reset_time', 'verify', 'post',
     'Prowl', 'LogHandler']
 
-API_URL_BASE = 'https://prowl.weks.net/publicapi/'
+API_URL_BASE = 'https://api.prowlapp.com/publicapi/'
 
 DEFAULT_PRIORITY = 0
 DEFAULT_APP = 'py:%s' % __name__
@@ -119,13 +118,15 @@ def verify(key):
     raise Error(text.lower())
     
     
-def post(key, message, priority=None, app=None, event=None, providerkey=None):
+def post(key, message, priority=None, url=None, app=None, event=None, providerkey=None):
     """Send a message.
     
     Parameters:
         key -- An API key, or a list of API keys to post to.
         message -- The message to send.
         priority -- Integer from -2 to 2 inclusive.
+        url -- Requires Prowl 1.2 The URL which should be attached to the
+               notification.
         app -- App identifier to send as.
         event -- Event identifier to send as.
         providerkey -- Provider API key if you have been whitelisted.
@@ -141,6 +142,8 @@ def post(key, message, priority=None, app=None, event=None, providerkey=None):
         'event': event or DEFAULT_EVENT,
         'description': message
     }
+    if url is not None:
+        data['url'] = url
     if providerkey is not None:
         data['providerkey'] = providerkey
     
